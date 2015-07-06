@@ -1,0 +1,36 @@
+{
+  "name": "devshop",
+  "private": true,
+  "dependencies": {
+    "react": "0.13.*",
+    "jquery": "*",
+    "lodash": "3.7.*",
+    "react-router": "0.13.3"
+  },
+  "devDependencies": {
+    "browserify": "*",
+    "browserify-shim": "^3.4.1",
+    "gulp": "*",
+    "gulp-notify": "^2.2.0",
+    "gulp-util": "*",
+    "gulp-watch": "*",
+    "reactify": "*",
+    "vinyl-source-stream": "*",
+    "vinyl-transform": "0.0.1",
+    "gulp-sass": "latest",
+    "gulp-rename": "latest",
+    "gulp-cssshrink": "latest",
+    "vinyl-buffer": "*",
+    "gulp-uglify": "*"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "browser": {
+    "jquery": "./node_modules/jquery/dist/jquery.min.js"
+  },
+  "browserify-shim": {
+  }
+}

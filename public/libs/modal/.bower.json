@@ -1,0 +1,14 @@
+{
+  "name": "modal",
+  "homepage": "https://github.com/beeblebrox3/modal",
+  "version": "0.1.1",
+  "_release": "0.1.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.1.1",
+    "commit": "b2d9e2b2d86d647b310d4eb99594ebc0ca3fadb2"
+  },
+  "_source": "https://github.com/beeblebrox3/modal.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/beeblebrox3/modal.git"
+}

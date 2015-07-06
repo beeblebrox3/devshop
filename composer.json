@@ -1,0 +1,27 @@
+{
+  "name": "beeblebrox3/devshop",
+  "minimum-stability": "stable",
+  "authors": [
+    {
+      "name": "Luís Henrique Faria",
+      "email": "luish.faria@gmail.com"
+    }
+  ],
+  "require": {
+    "knplabs/github-api": "1.4.*",
+    "illuminate/database": "5.*",
+    "illuminate/pagination": "5.*",
+    "aura/session": "*",
+    "respect/rest": "0.6.*",
+    "zzal/cakephp-hash": "dev-master"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "*"
+  },
+  "autoload": {
+    "psr-0": {
+      "Beeblebrox3\\": "app",
+      "CakePHP\\Utility\\": "vendor/zzal/cakephp-hash/Hash"
+    }
+  }
+}

@@ -1,0 +1,1 @@
+require("./object/index.js");

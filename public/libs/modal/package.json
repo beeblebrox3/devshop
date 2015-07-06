@@ -1,0 +1,20 @@
+{
+    "name": "modal",
+    "keywords": ["modal", "ui", "lightbox"],
+    "description": "A simple and free Modal plugin for jQuery",
+    "version": "0.1.1",
+    "author": "Luís Henrique <luish.faria@gmail.com>",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:beeblebrox3/modal.git"
+    },
+    "devDependencies": {
+        "gulp": ">=3.4.0",
+        "gulp-util": ">=2.2.0",
+        "gulp-uglify": ">=0.1.0",
+        "gulp-watch": ">=0.5.0",
+        "gulp-sass": ">=0.7.0",
+        "gulp-jshint": ">=1.4.0",
+        "gulp-minify-css": ">=0.3.0"
+    }
+}

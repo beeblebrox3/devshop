@@ -1,0 +1,124 @@
+$mask-color: rgba(255, 255, 255, 0.8);
+@mixin boxsizing {
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+// Utilities
+.modal-mask {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 900;
+    top: 0;
+    left: 0;
+    background: $mask-color;
+}
+
+.hide-modal {
+    position: absolute;    // doesn't affect layout
+    visibility: hidden;    // not visible, but normal size
+    left: -2000px;         // won't affect scrollbars
+    top: -2000px;          // won't affect scrollbars
+}
+
+// modal
+.modal-container {
+    background: white;
+    border: 1px solid #ccc;
+    display: block;
+    // padding: 20px;
+    max-width: 80%;
+    z-index: 901;
+    margin: auto;
+    position: fixed;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    @include boxsizing;
+}
+    .modal-header {
+        font-size: 30px;
+        text-transform: uppercase;
+        line-height: 120%;
+        clear: both;
+        @include boxsizing;
+    }
+
+    .modal-centered {
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        position: fixed;
+    }
+
+.modal-close {
+    display: inline-block;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    cursor: pointer;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    padding: 2px;
+    margin: 0;
+    background-color: rgb(221, 221, 221);
+    border: none;
+    color: rgb(51, 51, 51);
+    z-index: 903;
+}
+    .modal-close:hover {
+        background-color: rgb(200, 200, 200);
+    }
+
+.modal-content{
+    display: block;
+    position: relative;
+    padding: 20px 0;
+    // background: red;
+    @include boxsizing;
+}
+.modal-buttons-container {
+    display: block;
+    position: relative;
+    text-align: right;
+    @include boxsizing;
+}
+    .modal-buttons-container .modal-button {
+        background-color: rgb(221, 221, 221);
+        border: none;
+        color: rgb(51, 51, 51);
+        cursor: pointer;
+        display: inline-block;
+        font-size: 14px;
+        font-style: normal;
+        font-variant: normal;
+        font-weight: 100;
+        line-height: 20px;
+        margin-bottom: 0px;
+        margin-left: 0px;
+        margin-right: 0px;
+        margin-top: 0px;
+        outline: none;
+        padding: 6px 12px;
+        text-align: center;
+        text-indent: 0px;
+        text-shadow: none;
+        text-transform: none;
+        vertical-align: middle;
+        white-space: nowrap;
+        margin-right: 10px;
+        @include boxsizing;
+    }
+        .modal-button:last-child {
+            margin-right: 0;
+        }
+        .modal-button:hover {
+            background-color: rgb(200, 200, 200);
+        }
+        .modal-button:active {
+            background-color: rgb(150, 150, 150);
+        }

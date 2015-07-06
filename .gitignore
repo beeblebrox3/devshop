@@ -1,0 +1,6 @@
+.idea/
+nbproject/
+vendor/
+config.ini
+public_src/node_modules
+cmd.php

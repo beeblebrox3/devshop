@@ -1,0 +1,6 @@
+{
+  "name": "devshop",
+  "dependencies": {
+    "bootstrap": "*"
+  }
+}
