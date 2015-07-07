@@ -28,7 +28,7 @@ gulp.task("browserify", function () {
         .on("error", errorHandler)
         .pipe(source("bundle.js"))
         .pipe(buffer())
-        .pipe(uglify())
+        // .pipe(uglify())
         .pipe(gulp.dest("../public/js"))
         .pipe(notify("bundle updated"));
 });

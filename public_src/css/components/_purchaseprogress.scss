@@ -1,0 +1,14 @@
+.purchase-progress {
+    max-width: 700px;
+    margin: 20px auto;
+
+    .stage {
+        width: 33%;
+    }
+    .stage:last-child {
+        width: 34%;
+    }
+    .stage.incomplete {
+        background: silver;
+    }
+}

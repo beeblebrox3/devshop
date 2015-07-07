@@ -3,7 +3,19 @@ var React = App.libs.React;
 var _ = App.libs._;
 
 var DevelopersService = new App.services.Developers();
+var CartService = new App.services.Cart();
+
 var paginatorOptions = [4, 8, 12, 16, 40, 80];
+var sortOptions = {
+        "name": "Nome [A-Z]",
+        "-name": "Nome [Z-A]",
+        "price": "Preço [1-9]",
+        "-price": "Preço [9-1]",
+        "public_repos": "Repositórios [1-9]",
+        "-public_repos": "Repositórios [9-1]",
+        "followers": "Seguidores [1-9]",
+        "-followers": "Seguidores [9-1]"
+};
 
 var ListDevs = React.createClass({
     displayName: "ListDevs",
@@ -17,7 +29,6 @@ var ListDevs = React.createClass({
             searchConfig: {
                 q: "",
                 sort: "name",
-                direction: "asc",
                 offset: 8,
                 page: 1
             },
@@ -34,8 +45,13 @@ var ListDevs = React.createClass({
     render: function () {
         "use strict";
 
+        var self = this;
         return (
             <div>
+
+                <div className="container">
+                    <App.components.base.PurchaseProgress stage={ 0 } />
+                </div>
 
                 <div className="jumbotron">
                     <div className="container text-center">
@@ -49,14 +65,15 @@ var ListDevs = React.createClass({
                         </div>
                     </div>
                 </div>
-                
+
                 <div className="container devs-list">
                     <div className="devs-list-filters-container">
                         <form className="" onSubmit={ this.handleSearch }>
-                            <div className="col-sm-6 col-sm-offset-3">
+                            <div className="col-sm-8 col-sm-offset-2">
                                 <div className="row">
-                                    <div className="col-sm-9">
+                                    <div className="col-sm-6">
                                         <div className="form-group">
+                                            <label className="form-labell">Busque pelo nome ou login</label>
                                             <div className="input-group">
                                                 <span className="input-group-addon">
                                                     <i className="glyphicon glyphicon-search" />
@@ -70,8 +87,9 @@ var ListDevs = React.createClass({
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-sm-3">
+                                    <div className="col-sm-2">
                                         <div className="form-group">
+                                            <label className="form-label">Mostrar:</label>
                                             <select className="form-control"
                                                     value={ this.state.searchConfig.offset }
                                                     onChange={ this.handleSearchConfigChange.bind(null, "offset")}
@@ -79,7 +97,23 @@ var ListDevs = React.createClass({
                                             >
                                                 { paginatorOptions.map(function (qtd) {
                                                     return (
-                                                        <option value={ qtd }>{ qtd }</option>
+                                                        <option value={ qtd } key={ "offset-option-" + qtd }>{ qtd }</option>
+                                                    );
+                                                }) }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div className="col-sm-4">
+                                        <div className="form-group">
+                                            <label className="form-label">Ordernar por</label>
+                                            <select className="form-control"
+                                                    value={ this.state.searchConfig.sort }
+                                                    onChange={ this.handleSearchConfigChange.bind(null, "sort")}
+                                                    id="amount"
+                                            >
+                                                { _.map(sortOptions, function (label, value) {
+                                                    return (
+                                                        <option value={ value } key={ "option-" + value }>{ label }</option>
                                                     );
                                                 }) }
                                             </select>
@@ -107,7 +141,7 @@ var ListDevs = React.createClass({
                                         </a>
                                     </div>
                                     <div className="caption">
-                                        <h3>{ dev.name }</h3>
+                                        <h3 className="dev-name" title={ dev.name }>{ dev.name }</h3>
                                         <h4>
                                             <a href={ dev.html_url }
                                                title={ "perfil de " + dev.name + " no GitHub" }
@@ -141,7 +175,8 @@ var ListDevs = React.createClass({
 
                                         <div className="actions">
                                             <p className="text-center">
-                                                <a className="btn btn-primary" href="#">
+                                                <a className="btn btn-primary" href="#"
+                                                    onClick={ self.handleAddToCart.bind(null, dev.login) }>
                                                     Adicionar ao carrinho
                                                 </a>
                                             </p>
@@ -245,6 +280,7 @@ var ListDevs = React.createClass({
 
         var searchConfig = _.clone(this.state.searchConfig);
         searchConfig[field] = event.target.value;
+
         this.setState({
             searchConfig: searchConfig
         }, this.performSearch);
@@ -255,6 +291,13 @@ var ListDevs = React.createClass({
 
         event.preventDefault();
         this.performSearch();
+    },
+
+    handleAddToCart: function (login, event) {
+        "use strict";
+
+        event.preventDefault();
+        CartService.put({items: [{login: login}]});
     }
 });
 

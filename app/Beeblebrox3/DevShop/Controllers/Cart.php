@@ -25,15 +25,27 @@ class Cart extends AbstractController implements Routable
 
     public function post()
     {
-        $login = $this->getHttp()->getInput('login', '');
-        $amount = $this->getHttp()->getInput('amount', 0);
-
-        $developer = \Beeblebrox3\DevShop\Repositories\Developer::whereLogin((string) $login)->first();
-        if (!$developer) {
-            $this->getHttp()->fireError(404);
+        $inputItems = $this->getHttp()->getInput('items', array());
+        $items = array();
+        foreach ($inputItems as $item) {
+            if (!empty($item['login'])) {
+                $items[(string) $item['login']] = (int) isset($item['amount']) ? $item['amount'] : 0;
+            }
         }
 
-        $this->Cart->addDev($developer, $amount);
+        $developers = \Beeblebrox3\DevShop\Repositories\Developer::whereIn('login', array_keys($items))->get();
+
+        foreach ($developers as $developer) {
+            $this->Cart->addDev($developer, $items[$developer->login]);
+        }
+        
+        $this->get();
+    }
+
+    public function delete($devLogin)
+    {
+        $devLogin = (string) $devLogin;
+        $this->Cart->delDev($devLogin);
         $this->get();
     }
 

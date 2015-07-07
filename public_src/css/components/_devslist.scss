@@ -6,11 +6,17 @@
 
         .thumbnail {
             text-align: center;
-            height: 262px;
+
+            img {
+                width: 100%;
+            }
         }
 
         h3 {
             font-size: 18px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         h4 {
             font-size: 16px;
