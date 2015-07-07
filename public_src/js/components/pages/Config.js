@@ -11,8 +11,8 @@ var Config = React.createClass({
 
         return {
             data: {
-                orgName: "vtex",
-                override: 0
+                orgName: "",
+                override: 1
             }
         };
     },
@@ -44,19 +44,6 @@ var Config = React.createClass({
                         </div>
 
                         <div className="form-group">
-                            <label className="col-sm-4 control-label">Sobrescrever?</label>
-                            <div className="col-sm-8">
-                                <select className="form-control" valueLink={ this.linkState("data.override") }>
-                                    <option value="0">Não</option>
-                                    <option value="1">Sim</option>
-                                </select>
-                                <span className="help-block">
-                                    Selecione "sim" para substituir a empresa atual e a lista de desenvolvedores.
-                                </span>
-                            </div>
-                        </div>
-
-                        <div className="form-group">
                             <div className="col-sm-offset-4 col-sm-8">
                                 <input type="submit" className="btn btn-primary btn-lg" />
                             </div>
@@ -72,8 +59,8 @@ var Config = React.createClass({
 
         event.preventDefault();
 
-        ConfigService.post(this.state.data, function (response) {
-            console.log(response);
+        ConfigService.post(this.state.data, function () {
+            alert("ops!");
         });
     }
 });

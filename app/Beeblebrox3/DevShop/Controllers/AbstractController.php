@@ -11,6 +11,9 @@ abstract class AbstractController
      */
     protected $Http = null;
 
+    /**
+     * @return Http
+     */
     protected function getHttp()
     {
         if (is_null($this->Http)) {
@@ -19,7 +22,7 @@ abstract class AbstractController
 
         return $this->Http;
     }
-    
+
     /**
      * @param array $data
      */

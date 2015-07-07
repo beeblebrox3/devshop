@@ -18,6 +18,10 @@ $router->get('/', function () {
 $router->any('/devs/*', '\Beeblebrox3\DevShop\Controllers\Devs');
 
 $router->any('/cart', '\Beeblebrox3\DevShop\Controllers\Cart');
+$router->post('/cart/apply-cupom', function () {
+    $controller = new \Beeblebrox3\DevShop\Controllers\Cart;
+    $controller->applyCupom();
+});
 
 $router->post('/config', function () {
     $controller = new Beeblebrox3\DevShop\Controllers\Config;

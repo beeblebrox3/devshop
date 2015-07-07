@@ -21,7 +21,7 @@ class Developers extends \Illuminate\Database\Migrations\Migration
             $table->string('url', 160);
             $table->string('html_url', 160);
             $table->string('avatar_url', 160)->nullable();
-            $table->integer('gravatar_id')->nullable();
+            $table->string('gravatar_id', 160)->nullable();
             $table->string('followers_url', 160);
             $table->string('following_url', 160);
             $table->string('starred_url', 160);

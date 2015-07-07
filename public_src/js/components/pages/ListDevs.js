@@ -63,7 +63,8 @@ var ListDevs = React.createClass({
                                                 </span>
                                                 <input placeholder="Busque pelo nome ou login do desenvolvedor"
                                                        className="form-control"
-                                                       valueLink={ this.linkState("searchConfig.q") }
+                                                       value={ this.state.searchConfig.q }
+                                                       onChange={ this.handleSearchConfigChange.bind(null, "q")}
                                                        id="q"
                                                 />
                                             </div>
@@ -72,7 +73,8 @@ var ListDevs = React.createClass({
                                     <div className="col-sm-3">
                                         <div className="form-group">
                                             <select className="form-control"
-                                                    valueLink={ this.linkState("searchConfig.offset") }
+                                                    value={ this.state.searchConfig.offset }
+                                                    onChange={ this.handleSearchConfigChange.bind(null, "offset")}
                                                     id="amount"
                                             >
                                                 { paginatorOptions.map(function (qtd) {
@@ -119,7 +121,7 @@ var ListDevs = React.createClass({
 
                                         <p>
                                             <i className="glyphicon glyphicon-map-marker"></i>
-                                            { dev.location }
+                                            { dev.location || <i>indefinido</i> }
                                         </p>
 
                                         <div className="row devs-badges">
@@ -236,6 +238,16 @@ var ListDevs = React.createClass({
 
         state.searchConfig.page = changeTo;
         this.setState(state, this.performSearch);
+    },
+
+    handleSearchConfigChange: function (field, event) {
+        "use strict";
+
+        var searchConfig = _.clone(this.state.searchConfig);
+        searchConfig[field] = event.target.value;
+        this.setState({
+            searchConfig: searchConfig
+        }, this.performSearch);
     },
 
     handleSearch: function (event) {

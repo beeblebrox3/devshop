@@ -4,6 +4,7 @@ namespace Beeblebrox3\DevShop\GithubConnection;
 
 use Beeblebrox3\DevShop\Foundation\Config;
 use Github\Client;
+use Github\ResultPager;
 
 class GithubConnector
 {
@@ -16,7 +17,6 @@ class GithubConnector
     {
         $this->client = new Client();
         $this->client->authenticate(Config::getInstance()->get('github.token'), Client::AUTH_URL_TOKEN);
-        $this->org = 'vtex';
     }
     
     public function getClient()
@@ -31,7 +31,9 @@ class GithubConnector
 
     public function getOrgMembers($orgName)
     {
-        return $this->client->api('organizations')->members()->all($orgName);
+        $API = $this->client->api('organizations')->members();
+        $paginator = new ResultPager($this->client);
+        return $paginator->fetchAll($API, 'all', [$orgName]);
     }
 
     public function getUser($user)
