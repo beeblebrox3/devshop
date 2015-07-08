@@ -57,7 +57,7 @@ var ListDevs = React.createClass({
                     <div className="container text-center">
                         <h1>Escolha seu desenvolvedor!</h1>
 
-                        <div className="col-sm-6 col-sm-offset-3">
+                        <div className="col-xs-6 col-xs-offset-3">
                             <p>
                                 Você tem os mais brilhantes desenvolvedores a sua disposição!
                                 Escolha os que quiser e tenha certeza que seu projeto será concretizado :)
@@ -69,9 +69,9 @@ var ListDevs = React.createClass({
                 <div className="container devs-list">
                     <div className="devs-list-filters-container">
                         <form className="" onSubmit={ this.handleSearch }>
-                            <div className="col-sm-8 col-sm-offset-2">
+                            <div className="col-xs-8 col-xs-offset-2">
                                 <div className="row">
-                                    <div className="col-sm-6">
+                                    <div className="col-xs-6">
                                         <div className="form-group">
                                             <label className="form-labell">Busque pelo nome ou login</label>
                                             <div className="input-group">
@@ -87,7 +87,7 @@ var ListDevs = React.createClass({
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-sm-2">
+                                    <div className="col-xs-2">
                                         <div className="form-group">
                                             <label className="form-label">Mostrar:</label>
                                             <select className="form-control"
@@ -103,7 +103,7 @@ var ListDevs = React.createClass({
                                             </select>
                                         </div>
                                     </div>
-                                    <div className="col-sm-4">
+                                    <div className="col-xs-4">
                                         <div className="form-group">
                                             <label className="form-label">Ordernar por</label>
                                             <select className="form-control"
@@ -131,7 +131,7 @@ var ListDevs = React.createClass({
                     <div className="row">
                         { this.state.devs.map(function (dev) {
                             return (
-                                <div className="col-md-3 developer" key={ "dev-" + dev.id }>
+                                <div className="col-xs-3 developer" key={ "dev-" + dev.id }>
                                     <div className="thumbnail">
                                         <a href={ dev.html_url }
                                            title={ "perfil de " + dev.name + " no GitHub" }
@@ -159,15 +159,15 @@ var ListDevs = React.createClass({
                                         </p>
 
                                         <div className="row devs-badges">
-                                            <div className="col-sm-4">
+                                            <div className="col-md-4">
                                                 <span className="title">Seguidores</span>
                                                 <span className="value">{ dev.followers }</span>
                                             </div>
-                                            <div className="col-sm-4">
+                                            <div className="col-md-4">
                                                 <span className="title">Repositórios</span>
                                                 <span className="value">{ dev.public_repos }</span>
                                             </div>
-                                            <div className="col-sm-4">
+                                            <div className="col-md-4">
                                                 <span className="title">Preço hora</span>
                                                 <span className="value">R$ { dev.price }</span>
                                             </div>
@@ -189,6 +189,14 @@ var ListDevs = React.createClass({
                 </div>
 
                 { this.renderPaginator() }
+
+                <div className="text-center">
+                    <p>
+                        <a href="#cart" className="btn btn-success btn-lg">
+                            Comprar
+                        </a>
+                    </p>
+                </div>
             </div>
         );
     },
@@ -297,7 +305,7 @@ var ListDevs = React.createClass({
         "use strict";
 
         event.preventDefault();
-        CartService.put({items: [{login: login}]});
+        CartService.put({items: [{login: login, amount: 1}]});
     }
 });
 

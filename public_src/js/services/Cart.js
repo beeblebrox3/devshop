@@ -109,4 +109,36 @@ Cart.prototype.useCupom = function (code, onSuccess, onError) {
     });
 };
 
+Cart.prototype.buy = function (onSuccess, onError) {
+    "use strict";
+
+    var self = this;
+
+    $.ajax({
+        url: self.basepath + "/buy",
+        type: "POST",
+        dataType: "json",
+        error: function (response) {
+            App.EventManager.notify(self.serviceName + ".buy.error", {
+                request: {},
+                response: response
+            });
+
+            if (typeof onError === "function") {
+                onError(response, {});
+            }
+        },
+        success: function (response) {
+            App.EventManager.notify(self.serviceName + ".buy", {
+                request: {},
+                response: response
+            });
+
+            if (typeof onSuccess === "function") {
+                onSuccess(response, {});
+            }
+        }
+    });
+};
+
 App.services.Cart = Cart;

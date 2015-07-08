@@ -3,12 +3,24 @@ var React = App.libs.React;
 var _ = App.libs._;
 
 var MiniCart = React.createClass({
+    displayName: "MiniCart",
+
+    getInitialState: function () {
+        "use strict";
+
+        return {
+            opened: true
+        };
+    },
+
     render: function () {
         "use strict";
 
         return (
-            <div className="minicart">
-                Carrinho: { this.props.cart.items.length }
+            <div className="navbar-text minicart">
+                <div className="text-center">
+                    Você tem { this.props.cart.items.length } desenvolvedores no seu carrinho
+                </div>
             </div>
         );
     }

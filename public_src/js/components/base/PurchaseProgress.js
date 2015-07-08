@@ -8,8 +8,17 @@ var PurchaseProgress = React.createClass({
         "use strict";
 
         return {
-            stages: ["Escolher desenvolvedores", "Rever o pedido", "Pedido concluído"],
-            currentStage: 0
+            stages: [{
+                label: "Escolher desenvolvedores",
+                path: "devs"
+            }, {
+                label: "Rever pedido",
+                path: "cart"
+            }, {
+                label: "Pedido concluído",
+                path: "thanks"
+            }],
+            stage: 0
         };
     },
 
@@ -21,37 +30,25 @@ var PurchaseProgress = React.createClass({
         return (
             <div className="progress purchase-progress">
                 { this.props.stages.map(function (stage, index) {
+                    var active = self.props.stage >= index;
+                    var controller = <span>{ stage.label } </span>;
+
+                    if (active) {
+                        controller = (
+                            <a href={ "#" + stage.path }>
+                                { stage.label }
+                            </a>
+                        );
+                    }
                     return (
                         <div key={ "stage-" + index }
-                            className={ "progress-bar stage " + (self.props.currentStage >= index ? "progress-bar-success" : "incomplete") }
+                            className={ "progress-bar stage " + (active ? "progress-bar-success" : "incomplete") }
                         >
-                            { stage }
+
+                            { controller }
                         </div>
                     );
                 }) }
-            </div>
-        );
-    },
-
-    _render: function () {
-        "use strict";
-
-        var self = this;
-        return (
-            <div className="purchase-progress-container">
-                <ul className="purchase-progress">
-                    { this.props.stages.map(function (stage, index) {
-                        return (
-                            <li className={ "stage" + (self.props.currentStage <= index ? "active" : "") }
-                                key={ "stage-" + index }
-                            >
-                                <span className="stage-name">
-                                    { stage }
-                                </span>
-                            </li>
-                        );
-                    }) }
-                </ul>
             </div>
         );
     }

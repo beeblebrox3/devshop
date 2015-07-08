@@ -23,6 +23,11 @@ $router->post('/cart/apply-cupom', function () {
     $controller->applyCupom();
 });
 
+$router->post('/cart/buy/', function () {
+    $controller = new Beeblebrox3\DevShop\Controllers\Cart;
+    $controller->buy();
+});
+
 $router->delete('/cart/*', '\Beeblebrox3\DevShop\Controllers\Cart');
 
 $router->post('/config', function () {

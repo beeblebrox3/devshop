@@ -7,6 +7,8 @@ var CartService = new App.services.Cart;
 var Application = React.createClass({
     displayName: "Application",
 
+    mixins: [App.libs.Router.Navigation],
+
     getInitialState: function () {
         "use strict";
 
@@ -27,10 +29,9 @@ var Application = React.createClass({
         App.EventManager.subscribeMultiple([
             "Cart.addItem",
             "Cart.delete",
-            "Cart.useCupom"
+            "Cart.useCupom",
+            "Cart.buy"
         ], this.updateCartFromEvent);
-
-        console.log('did mount');
     },
 
     componentWillUnmount: function () {
@@ -39,10 +40,9 @@ var Application = React.createClass({
         App.EventManager.unsubscribeMultiple([
             "Cart.addItem",
             "Cart.delete",
-            "Cart.useCupom"
+            "Cart.useCupom",
+            "Cart.buy"
         ], this.updateCartFromEvent);
-
-        console.log("will unmount");
     },
 
     render: function () {
@@ -63,7 +63,12 @@ var Application = React.createClass({
                     </div>
                 </nav>
 
-                <RouteHandler cart={ this.state.cart }/>
+                <RouteHandler
+                    cart={ this.state.cart }
+                    updateCartItem={ this.updateCartItem }
+                    handleRemoveItem={ this.handleRemoveItem }
+                    handleBuy={ this.handleBuy }
+              />
             </div>
         );
     },
@@ -80,6 +85,26 @@ var Application = React.createClass({
         "use strict";
 
         this.setState({cart: data.response});
+    },
+
+    updateCartItem: function (item) {
+        "use strict";
+
+        CartService.put({items: [item]});
+    },
+
+    handleRemoveItem: function (item) {
+        "use strict";
+
+        CartService.delete(item);
+    },
+
+    handleBuy: function() {
+        "use strict";
+
+        CartService.buy(function () {
+            this.transitionTo("thanks");
+        }.bind(this));
     }
 });
 

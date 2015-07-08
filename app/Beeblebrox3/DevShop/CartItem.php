@@ -49,9 +49,9 @@ class CartItem
      * @param float $discount
      * @return float
      */
-    public function price($discount = 0)
+    public function totalPrice()
     {
-        return ($this->developer->price * $this->amount) - $discount;
+        return $this->developer->price * $this->amount;
     }
 
     /**
@@ -61,7 +61,7 @@ class CartItem
     {
         $response = $this->developer->toArray();
         $response['amount'] = $this->amount();
-        $response['price'] = $this->price();
+        $response['total_price'] = $this->totalPrice();
 
         return $response;
     }

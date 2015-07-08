@@ -15,5 +15,6 @@ require("./services/index");
 require("./components/index");
 
 require("./routes");
+require("./filters");
 
 module.exports = App;

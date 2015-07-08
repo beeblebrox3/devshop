@@ -9,6 +9,8 @@ var routes = (
         <DefaultRoute handler={ App.components.pages.Home }/>
         <Route name="config" path="config" handler={ App.components.pages.Config } />
         <Route name="devslist" path="devs" handler={ App.components.pages.ListDevs } />
+        <Route name="cart" path="cart" handler={ App.components.pages.Cart } />
+        <Route name="thanks" path="thanks" handler={ App.components.pages.Thanks } />
     </Route>
 );
 

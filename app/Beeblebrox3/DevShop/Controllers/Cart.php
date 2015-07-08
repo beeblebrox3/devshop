@@ -38,7 +38,7 @@ class Cart extends AbstractController implements Routable
         foreach ($developers as $developer) {
             $this->Cart->addDev($developer, $items[$developer->login]);
         }
-        
+
         $this->get();
     }
 
@@ -56,6 +56,12 @@ class Cart extends AbstractController implements Routable
             $this->getHttp()->fireError(403, ['error' => 'invalid cupom code']);
         }
 
+        $this->get();
+    }
+
+    public function buy()
+    {
+        $this->Cart->clean();
         $this->get();
     }
 }

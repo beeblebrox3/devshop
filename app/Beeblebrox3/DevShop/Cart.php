@@ -92,7 +92,7 @@ class Cart
 
         foreach ($items as $item) {
             $response['items'][] = $item->toArray();
-            $response['price'] += $item->price();
+            $response['price'] += $item->totalPrice();
         }
         $response['discount'] = $this->calcCupomDiscount($response['price']);
         $response['total_price'] = round($response['price'] - $response['discount'], 2);
@@ -110,7 +110,7 @@ class Cart
         if (!$this->cupom || !isset($this->cupoms[$this->cupom])) {
             return 0;
         }
-        
+
         $cupom = $this->cupoms[$this->cupom];
         if ($cupom['discount_value']) {
             return $cupom['discount_value'];
