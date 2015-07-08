@@ -26,6 +26,7 @@ class Cart
         $sessionFactory = new \Aura\Session\SessionFactory;
         $this->session = $sessionFactory->newInstance($_COOKIE);
         $this->cart = $this->session->getSegment('Beeblebrox3\DevShop\Cart');
+        $this->cupom = $this->cart->get('cupom', '');
     }
 
     /**
@@ -129,6 +130,7 @@ class Cart
         }
 
         $this->cupom = $code;
+        $this->cart->set('cupom', $this->cupom);
         return true;
     }
 
