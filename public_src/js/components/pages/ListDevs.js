@@ -29,7 +29,7 @@ var ListDevs = React.createClass({
             searchConfig: {
                 q: "",
                 sort: "name",
-                offset: 8,
+                offset: 4,
                 page: 1
             },
             devs: []

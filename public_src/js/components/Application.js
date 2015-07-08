@@ -2,7 +2,8 @@ var App = require("app");
 var React = App.libs.React;
 var Router = App.libs.Router;
 var RouteHandler = Router.RouteHandler;
-var CartService = new App.services.Cart;
+var CartService = new App.services.Cart();
+var NotificationSystem = App.libs.NotificationSystem;
 
 var Application = React.createClass({
     displayName: "Application",
@@ -26,12 +27,28 @@ var Application = React.createClass({
         "use strict";
 
         this.updateCart();
+        this._notificationSystem = this.refs.notificationSystem;
+
         App.EventManager.subscribeMultiple([
             "Cart.addItem",
             "Cart.delete",
             "Cart.useCupom",
             "Cart.buy"
         ], this.updateCartFromEvent);
+
+        App.EventManager.subscribeMultiple([
+            "Cart.addItem.error",
+            "Cart.delete.error",
+            "Cart.useCupom.error",
+            "Cart.buy.error"
+        ], this.notifyError);
+
+        App.EventManager.subscribe("Config.post", function () {
+            this._addNotification("Organização importada com sucesso!", "success");
+        }.bind(this));
+        App.EventManager.subscribe("Config.post.error", function () {
+            this._addNotification("Ops! Falha ao importar organização :( Verifique se o nome está correto!", "error");
+        }.bind(this));
     },
 
     componentWillUnmount: function () {
@@ -43,6 +60,18 @@ var Application = React.createClass({
             "Cart.useCupom",
             "Cart.buy"
         ], this.updateCartFromEvent);
+
+        App.EventManager.unsubscribeMultiple([
+            "Cart.addItem.error",
+            "Cart.delete.error",
+            "Cart.useCupom.error",
+            "Cart.buy.error"
+        ], this.notifyError);
+
+        App.EventManager.unsubscribeAll([
+            "Config.post",
+            "Config.post.error"
+        ]);
     },
 
     render: function () {
@@ -62,6 +91,8 @@ var Application = React.createClass({
                         />
                     </div>
                 </nav>
+
+                <NotificationSystem ref="notificationSystem" />
 
                 <RouteHandler
                     cart={ this.state.cart }
@@ -86,6 +117,10 @@ var Application = React.createClass({
         "use strict";
 
         this.setState({cart: data.response});
+        this._addNotification(
+            "Seu carrinho foi atualizado com sucesso!",
+            "success"
+        );
     },
 
     updateCartItem: function (item) {
@@ -112,6 +147,26 @@ var Application = React.createClass({
         "use strict";
 
         CartService.useCupom(cupomCode);
+    },
+
+    _notificationSystem: null,
+
+    _addNotification: function (message, level) {
+        "use strict";
+
+        this._notificationSystem.addNotification({
+            message: message,
+            level: level
+        });
+    },
+
+    notifyError: function () {
+        "use strict";
+
+        this._addNotification(
+            "Ops! Algo deu errado com sua última solicitação. Tente novamente mais tarde",
+            "error"
+        );
     }
 });
 

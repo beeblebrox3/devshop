@@ -29,7 +29,7 @@ Config.prototype.post = function (data, onSuccess, onError) {
             }
         },
         success: function (response) {
-            App.EventManager.notify(self.serviceName + ".create", {
+            App.EventManager.notify(self.serviceName + ".post", {
                 request: data,
                 response: response
             });

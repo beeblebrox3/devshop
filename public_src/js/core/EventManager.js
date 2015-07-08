@@ -59,6 +59,15 @@ var EventManager = function () {
             }
         },
 
+        unsubscribeAll: function (eventsNames) {
+            var i, length = eventsNames.length;
+            for (i = 0; i < length; i++) {
+                if (map.hasOwnProperty(eventsNames[i])) {
+                    delete (map[eventsNames[i]]);
+                }
+            }
+        },
+
         notify: function (eventName) {
             debug(eventName + " fired!");
             if (!map.hasOwnProperty(eventName)) {

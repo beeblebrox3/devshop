@@ -1,6 +1,15 @@
-@import "/libs/bootstrap/dist/css/bootstrap.min.css";
 @import "components/devslist";
 @import "components/purchaseprogress";
 @import "components/minicart";
 
 body { padding-top: 50px; }
+
+// fix to compatibility issue between bootstrap and Modal
+.modal-content {
+    box-shadow: none;
+    border: none;
+    border-radius: 0px;
+}
+.modal-header {
+    padding: 0;
+}

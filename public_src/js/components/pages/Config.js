@@ -58,10 +58,7 @@ var Config = React.createClass({
         "use strict";
 
         event.preventDefault();
-
-        ConfigService.post(this.state.data, function () {
-            alert("ops!");
-        });
+        ConfigService.post(this.state.data);
     }
 });
 

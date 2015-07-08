@@ -1,6 +1,7 @@
 {
   "name": "devshop",
   "dependencies": {
-    "bootstrap": "*"
+    "bootstrap": "*",
+    "modal": "https://github.com/beeblebrox3/modal.git"
   }
 }
