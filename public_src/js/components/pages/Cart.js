@@ -2,6 +2,18 @@ var App = require("app");
 var React = App.libs.React;
 
 var Cart = React.createClass({
+    displayName: "Cart",
+
+    mixins: [App.components.mixins.LinkedState],
+
+    getInitialState: function () {
+        "use strict";
+
+        return {
+            cupomCode: ""
+        };
+    },
+
     render: function () {
         "use strict";
 
@@ -18,21 +30,35 @@ var Cart = React.createClass({
 
                 <div className="panel panel-warning">
                     <div className="panel-body">
+                        <form className="form-inline" onSubmit={ this.handleCupomForm }>
+                            <div className="form-group">
+                                <label>Cupom de desconto: </label>
+                                <input className="form-control"
+                                       placeholder=""
+                                       ref="cupom-code"
+                                       valueLink={ this.linkState("cupomCode") }
+                                />
+                            </div>
+                            <input type="submit"
+                                   className="btn btn-primary"
+                                   value="Usar cupom de desconto"
+                            />
+                        </form>
                         <table className="table table-condensed">
                             <thead>
                                 <tr>
-                                    <th className="col-md-8">Desenvolvedor</th>
-                                    <th className="col-md-1">Horas contratadas</th>
-                                    <th className="col-md-1">Preço unitário</th>
-                                    <th className="col-md-1">Preço final</th>
-                                    <th className="col-md-1"></th>
+                                    <th className="col-md-4">Desenvolvedor</th>
+                                    <th className="col-md-2 text-center">Horas contratadas</th>
+                                    <th className="col-md-2 text-center">Preço unitário</th>
+                                    <th className="col-md-2 text-center">Preço final</th>
+                                    <th className="col-md-2"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 { this.props.cart.items.map(function (item, index) {
                                     return (
-                                        <tr>
-                                            <td className="col-md-8">
+                                        <tr key={ index }>
+                                            <td className="col-md-4">
                                                 <div className="media">
                                                     <div className="media-left">
                                                         <img className="media-object" src={ item.avatar_url } width="46" />
@@ -43,20 +69,20 @@ var Cart = React.createClass({
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td className="col-md-1">
+                                            <td className="col-md-2">
                                                 <input defaultValue={ item.amount }
                                                        className="form-control"
                                                        type="number"
                                                        ref={ "amount-dev-" + item.login }
                                                 />
                                             </td>
-                                            <td className="col-md-1 text-right">
+                                            <td className="col-md-2 text-right">
                                                 R$ { item.price }
                                             </td>
-                                            <td className="col-md-1 text-right">
+                                            <td className="col-md-2 text-right">
                                                 R$ { item.price * item.amount }
                                             </td>
-                                            <td className="col-md-1 text-right">
+                                            <td className="col-md-2 text-right">
                                                 <div className="btn-group">
                                                     <span className="btn btn-default"
                                                           onClick={ self.handleUpdateCartItem.bind(null, item) }
@@ -112,6 +138,13 @@ var Cart = React.createClass({
             login: item.login,
             amount: this.refs["amount-dev-" + item.login].getDOMNode().value
         });
+    },
+
+    handleCupomForm: function (event) {
+        "use strict";
+
+        event.preventDefault();
+        this.props.handleCupom(this.state.cupomCode);
     }
 });
 

@@ -48,11 +48,6 @@ var ListDevs = React.createClass({
         var self = this;
         return (
             <div>
-
-                <div className="container">
-                    <App.components.base.PurchaseProgress stage={ 0 } />
-                </div>
-
                 <div className="jumbotron">
                     <div className="container text-center">
                         <h1>Escolha seu desenvolvedor!</h1>
@@ -63,6 +58,10 @@ var ListDevs = React.createClass({
                                 Escolha os que quiser e tenha certeza que seu projeto será concretizado :)
                             </p>
                         </div>
+                    </div>
+
+                    <div className="container">
+                        <App.components.base.PurchaseProgress stage={ 0 } />
                     </div>
                 </div>
 

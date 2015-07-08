@@ -12,7 +12,7 @@ class Cart
     protected $hydrated = false;
 
     protected $cupoms = array (
-        'cupomteste' => array (
+        'SHIPIT' => array (
             'discount_value' => 0,
             'discount_percentage' => 20,
             'description' => 'Cupom de 20% de desconto',

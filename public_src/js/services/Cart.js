@@ -83,7 +83,7 @@ Cart.prototype.useCupom = function (code, onSuccess, onError) {
 
     $.ajax({
         url: self.basepath + "/apply-cupom",
-        type: "DELETE",
+        type: "POST",
         data: {"cupom": code},
         dataType: "json",
         error: function (response) {

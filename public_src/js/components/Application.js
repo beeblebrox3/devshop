@@ -68,6 +68,7 @@ var Application = React.createClass({
                     updateCartItem={ this.updateCartItem }
                     handleRemoveItem={ this.handleRemoveItem }
                     handleBuy={ this.handleBuy }
+                    handleCupom={ this.handleCupom }
               />
             </div>
         );
@@ -105,6 +106,12 @@ var Application = React.createClass({
         CartService.buy(function () {
             this.transitionTo("thanks");
         }.bind(this));
+    },
+
+    handleCupom: function (cupomCode) {
+        "use strict";
+
+        CartService.useCupom(cupomCode);
     }
 });
 
