@@ -141,4 +141,4 @@ Cart.prototype.buy = function (onSuccess, onError) {
     });
 };
 
-App.services.Cart = Cart;
+module.exports = Cart;

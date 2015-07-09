@@ -1,7 +1,7 @@
 var App = require("app");
 var React = App.libs.React;
 
-var ConfigService = new App.services.Config();
+var ConfigService = App.ServicesContainer.get("Config");
 
 var Config = React.createClass({
     mixins: [App.components.mixins.LinkedState],

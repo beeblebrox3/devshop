@@ -2,8 +2,8 @@ var App = require("app");
 var React = App.libs.React;
 var _ = App.libs._;
 
-var DevelopersService = new App.services.Developers();
-var CartService = new App.services.Cart();
+var DevelopersService = App.ServicesContainer.get("Developers");
+var CartService = App.ServicesContainer.get("Cart");
 
 var paginatorOptions = [4, 8, 12, 16, 40, 80];
 var sortOptions = {

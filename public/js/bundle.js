@@ -37,7 +37,7 @@ var App = require("app");
 var React = App.libs.React;
 var Router = App.libs.Router;
 var RouteHandler = Router.RouteHandler;
-var CartService = new App.services.Cart();
+var CartService = App.ServicesContainer.get("Cart");
 var NotificationSystem = App.libs.NotificationSystem;
 
 var Application = React.createClass({
@@ -540,7 +540,7 @@ module.exports = Cart;
 var App = require("app");
 var React = App.libs.React;
 
-var ConfigService = new App.services.Config();
+var ConfigService = App.ServicesContainer.get("Config");
 
 var Config = React.createClass({displayName: "Config",
     mixins: [App.components.mixins.LinkedState],
@@ -636,8 +636,8 @@ var App = require("app");
 var React = App.libs.React;
 var _ = App.libs._;
 
-var DevelopersService = new App.services.Developers();
-var CartService = new App.services.Cart();
+var DevelopersService = App.ServicesContainer.get("Developers");
+var CartService = App.ServicesContainer.get("Cart");
 
 var paginatorOptions = [4, 8, 12, 16, 40, 80];
 var sortOptions = {
@@ -1072,7 +1072,7 @@ var EventManager = function () {
 
             var index = map[eventName].indexOf(fn);
             if (index !== -1) {
-                delete map[eventName][index];
+                map[eventName].splice(index, 1);
             }
             debug("unsubscribed to " + eventName);
         },
@@ -1399,7 +1399,7 @@ Cart.prototype.buy = function (onSuccess, onError) {
     });
 };
 
-App.services.Cart = Cart;
+module.exports = Cart;
 
 },{"./RestInterface":26,"app":1}],24:[function(require,module,exports){
 var App = require("app");
@@ -1445,7 +1445,7 @@ Config.prototype.post = function (data, onSuccess, onError) {
     });
 };
 
-App.services.Config = Config;
+module.exports = Config;
 
 },{"app":1}],25:[function(require,module,exports){
 var App = require("app");
@@ -1486,7 +1486,7 @@ Developers.prototype.index = function (config, onSuccess, onError) {
     }).fail(onError);
 };
 
-App.services.Developers = Developers;
+module.exports = Developers;
 
 },{"./RestInterface":26,"app":1}],26:[function(require,module,exports){
 var App = require("app");
@@ -1661,11 +1661,53 @@ RestInterface.prototype.destroy = function (data, onSuccess, onError) {
 module.exports = RestInterface;
 
 },{"app":1}],27:[function(require,module,exports){
-require("./Developers");
-require("./Config");
-require("./Cart");
+var App = require("app");
 
-},{"./Cart":23,"./Config":24,"./Developers":25}],28:[function(require,module,exports){
+var ServicesContainer = function () {
+    "use strict";
+
+    this.instances = {};
+    this.map = {};
+};
+
+ServicesContainer.prototype.define = function (serviceName, service, context) {
+    "use strict";
+
+    if (!context) {
+        context = App;
+    }
+
+    if (typeof service === "string") {
+        service = App.helpers.object.getFlattened(service, context);
+    }
+
+    this.map[serviceName] = service;
+};
+
+/**
+ * @param {string} serviceName
+ */
+ServicesContainer.prototype.get = function (serviceName) {
+    "use strict";
+
+    if (this.instances.hasOwnProperty(serviceName)) {
+        return this.instances[serviceName];
+    }
+
+    if (!this.map.hasOwnProperty(serviceName)) {
+        throw "Service " + serviceName + " not found";
+    }
+
+    this.instances[serviceName] = new this.map[serviceName]();
+    return this.instances[serviceName];
+};
+
+App.ServicesContainer = new ServicesContainer();
+App.ServicesContainer.define("Developers", require("./Developers"));
+App.ServicesContainer.define("Config", require("./Config"));
+App.ServicesContainer.define("Cart", require("./Cart"));
+
+},{"./Cart":23,"./Config":24,"./Developers":25,"app":1}],28:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};

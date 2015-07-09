@@ -41,4 +41,4 @@ Config.prototype.post = function (data, onSuccess, onError) {
     });
 };
 
-App.services.Config = Config;
+module.exports = Config;

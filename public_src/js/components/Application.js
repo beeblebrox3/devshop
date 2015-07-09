@@ -2,7 +2,7 @@ var App = require("app");
 var React = App.libs.React;
 var Router = App.libs.Router;
 var RouteHandler = Router.RouteHandler;
-var CartService = new App.services.Cart();
+var CartService = App.ServicesContainer.get("Cart");
 var NotificationSystem = App.libs.NotificationSystem;
 
 var Application = React.createClass({

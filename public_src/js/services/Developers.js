@@ -36,4 +36,4 @@ Developers.prototype.index = function (config, onSuccess, onError) {
     }).fail(onError);
 };
 
-App.services.Developers = Developers;
+module.exports = Developers;

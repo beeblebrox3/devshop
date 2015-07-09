@@ -47,7 +47,7 @@ var EventManager = function () {
 
             var index = map[eventName].indexOf(fn);
             if (index !== -1) {
-                delete map[eventName][index];
+                map[eventName].splice(index, 1);
             }
             debug("unsubscribed to " + eventName);
         },
